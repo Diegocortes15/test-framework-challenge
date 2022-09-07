@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+=======
+>>>>>>> 13a91b5efb485e99ec64760cfceaf3c286952a34
 import org.testng.annotations.Test;
 import org.themoviedb.auth.AuthConstants;
 import org.themoviedb.list.ListConstants;
@@ -9,6 +12,7 @@ import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
+<<<<<<< HEAD
 @Feature("List Tests")
 public class ListSpec {
 
@@ -21,6 +25,18 @@ public class ListSpec {
                     "iso_639_1": "en"
                 }
                 """, ListConstants.LIST_NAME);
+=======
+public class ListSpec {
+
+    @Test
+    public void createList() {
+        String json = """
+                {
+                    "name": "My New Cool List",
+                    "iso_639_1": "en"
+                }
+                """;
+>>>>>>> 13a91b5efb485e99ec64760cfceaf3c286952a34
 
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + AuthConstants.USER_APP_ACCESS_TOKEN);
@@ -42,7 +58,10 @@ public class ListSpec {
     }
 
     @Test
+<<<<<<< HEAD
     @Description("Test Description: Get a list of movies given an id")
+=======
+>>>>>>> 13a91b5efb485e99ec64760cfceaf3c286952a34
     public void getList() {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + AuthConstants.USER_APP_ACCESS_TOKEN);
@@ -62,7 +81,10 @@ public class ListSpec {
     }
 
     @Test
+<<<<<<< HEAD
     @Description("Test Description: Add movies in a list given an id")
+=======
+>>>>>>> 13a91b5efb485e99ec64760cfceaf3c286952a34
     public void addItems() {
 
         String json = """
