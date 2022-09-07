@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import org.themoviedb.auth.AuthConstants;
 import org.testng.annotations.Test;
 
@@ -9,6 +10,7 @@ import static org.hamcrest.Matchers.*;
 public class AuthSpec {
 
     @Test
+    @Description("Create request token given api_key and access_token")
     public void createRequestToken() {
 
         HashMap<String, String> headers = new HashMap<>();
@@ -29,6 +31,7 @@ public class AuthSpec {
     }
 
     @Test
+    @Description("Create access token given api_key and access_token from request token")
     public void createAccessToken(){
 
         HashMap<String, String> headers = new HashMap<>();

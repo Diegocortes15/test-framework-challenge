@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import org.themoviedb.auth.AuthConstants;
 import org.themoviedb.list.ListConstants;
@@ -7,9 +9,11 @@ import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
+@Feature("List Tests")
 public class ListSpec {
 
     @Test
+    @Description("Test Description: Create a list of movies given a name")
     public void createList() {
         String json = String.format("""
                 {
@@ -38,6 +42,7 @@ public class ListSpec {
     }
 
     @Test
+    @Description("Test Description: Get a list of movies given an id")
     public void getList() {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + AuthConstants.USER_APP_ACCESS_TOKEN);
@@ -57,6 +62,7 @@ public class ListSpec {
     }
 
     @Test
+    @Description("Test Description: Add movies in a list given an id")
     public void addItems() {
 
         String json = """
