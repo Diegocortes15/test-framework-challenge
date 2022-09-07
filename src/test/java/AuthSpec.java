@@ -6,7 +6,7 @@ import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class Authentication {
+public class AuthSpec {
 
     @Test
     public void createRequestToken() {
