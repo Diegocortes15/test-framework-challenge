@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Extra logging related to initialization of Log4j.
+ Set to debug or trace if log4j initialization is failing. -->
+<Configuration status="warn">
+    <Properties>
+        <Property name="LOG_PATTERN">[%p] %d [%t] %C{1}.%M | %m %ex%n</Property>
+        <Property name="APP_LOG_ROOT">
+            src/main/resources
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console appender configuration -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="listSpecFileLogger"
+                     fileName="${APP_LOG_ROOT}/listSpecLogger.log"
+                     filePattern="${APP_LOG_ROOT}/tests-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss,SSS} [%t] %c{1} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- Max 10 files will be created everyday -->
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="${basePath}" maxDepth="10">
+                    <!-- Delete all files older than 30 days -->
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="authSpecFileLogger"
+                     fileName="${APP_LOG_ROOT}/authSpecFileLogger.log"
+                     filePattern="${APP_LOG_ROOT}/tests-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss,SSS} [%t] %c{1} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- Max 10 files will be created everyday -->
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="${basePath}" maxDepth="10">
+                    <!-- Delete all files older than 30 days -->
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+    </Appenders>
+    <Loggers>
+
+        <Logger name="authSpecFileLogger" additivity="false" level="infoLog">
+            <AppenderRef ref="authSpecFileLogger"/>
+        </Logger>
+
+        <Logger name="listSpecFileLogger" additivity="false" level="infoLog">
+            <AppenderRef ref="listSpecFileLogger"/>
+        </Logger>
+
+        <!-- Root logger referring to console appender -->
+        <Root level="all" additivity="false">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
+        <!--
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Configuration status="debug" strict="true" name="XMLConfigTest"
+                       packages="org.apache.logging.log4j.test">
+            <Properties>
+                <Property name="filename">target/test.log</Property>
+            </Properties>
+            <Filter type="ThresholdFilter" level="trace"/>
+
+            <Appenders>
+                <Appender type="Console" name="STDOUT">
+                    <Layout type="PatternLayout" pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+                    <Filters>
+                        <Filter type="MarkerFilter" marker="FLOW" onMatch="DENY" onMismatch="NEUTRAL"/>
+                        <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="DENY" onMismatch="ACCEPT"/>
+                    </Filters>
+                </Appender>
+                <Appender type="Console" name="FLOW">
+                    <Layout type="PatternLayout" pattern="%C{1}.%M %m %ex%n"/>&lt;!&ndash; class and line number &ndash;&gt;
+                    <Filters>
+                        <Filter type="MarkerFilter" marker="FLOW" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                        <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
+                    </Filters>
+                </Appender>
+                <Appender type="File" name="File" fileName="${filename}">
+                    <Layout type="PatternLayout">
+                        <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+                    </Layout>
+                </Appender>
+            </Appenders>
+
+            <Loggers>
+                <Logger name="org.apache.logging.log4j.test1" level="debug" additivity="false">
+                    <Filter type="ThreadContextMapFilter">
+                        <KeyValuePair key="test" value="123"/>
+                    </Filter>
+                    <AppenderRef ref="STDOUT"/>
+                </Logger>
+
+                <Logger name="org.apache.logging.log4j.test2" level="debug" additivity="false">
+                    <AppenderRef ref="File"/>
+                </Logger>
+
+                <Root level="trace">
+                    <AppenderRef ref="STDOUT"/>
+                </Root>
+            </Loggers>
+
+        </Configuration>-->
